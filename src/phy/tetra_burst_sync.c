@@ -72,8 +72,8 @@ int tetra_burst_sync_in(struct tetra_rx_state *trs, uint8_t *bits, unsigned int 
 		}
 		DEBUGP("-> trying to find training sequence between bit %u and %u\n",
 			trs->bitbuf_start_bitnum, trs->bits_in_buf);
-		rc = tetra_find_train_seq(trs->bitbuf, trs->bits_in_buf,
-					  (1 << TETRA_TRAIN_SYNC), &train_seq_offs);
+		rc = tetra_find_train_seq_sync(trs->bitbuf, trs->bits_in_buf,
+					       &train_seq_offs);
 		if (rc < 0)
 			return rc;
 		printf("found SYNC training sequence in bit #%u\n", train_seq_offs);

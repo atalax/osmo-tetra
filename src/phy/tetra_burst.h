@@ -32,4 +32,7 @@ enum tetra_train_seq {
 int tetra_find_train_seq(const uint8_t *in, unsigned int end_of_in,
 			 uint32_t mask_of_train_seq, unsigned int *offset);
 
+int tetra_find_train_seq_sync(const uint8_t *in, unsigned int end_of_in,
+			      unsigned int *offset);
+
 #endif /* TETRA_BURST_H */

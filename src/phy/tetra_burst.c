@@ -308,6 +308,22 @@ int tetra_find_train_seq(const uint8_t *in, unsigned int end_of_in,
 	return -1;
 }
 
+/* Specialized version of the above to allow the compiler to perform more
+ * aggressive optimalization. */
+int tetra_find_train_seq_sync(const uint8_t *in, unsigned int end_of_in,
+			 unsigned int *offset)
+{
+	const uint8_t *cur;
+
+	for (cur = in; (in + end_of_in) - cur >= sizeof(y_bits); cur++) {
+		if (!memcmp(cur, y_bits, sizeof(y_bits))) {
+			*offset = (cur - in);
+			return TETRA_TRAIN_SYNC;
+		}
+	}
+	return -1;
+}
+
 void tetra_burst_rx_cb(const uint8_t *burst, unsigned int len, enum tetra_train_seq type, void *priv)
 {
 	uint8_t bbk_buf[NDB_BBK_BITS];
